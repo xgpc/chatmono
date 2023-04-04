@@ -1,0 +1,2351 @@
+definitions:
+  delivery.deliveryUpReq:
+    properties:
+      delivery_end_at:
+        description: 送达时间
+        type: integer
+      delivery_stat_at:
+        description: 接单时间
+        type: integer
+      delivery_status:
+        description: 配送状态:[1未接单, 2已接单/已发货, 3已送达, 4已取消]
+        type: integer
+      delivery_type:
+        description: 配送类型:[1同城配送, 2快递配送]
+        type: integer
+      delivery_user_id:
+        description: 配送人ID/发货人ID
+        type: integer
+      express_sn:
+        description: 快递单号
+        type: string
+      id:
+        description: 订单ID
+        type: integer
+    type: object
+  dict.GetReq:
+    properties:
+      id:
+        description: 字典ID
+        type: integer
+    type: object
+  dict.dictCreatedReq:
+    properties:
+      created_user_id:
+        type: integer
+      dict_type:
+        type: string
+      id:
+        type: integer
+      label:
+        type: string
+      parent_id:
+        type: integer
+      value_data:
+        items:
+          type: integer
+        type: array
+    type: object
+  dict.dictDelReq:
+    properties:
+      id:
+        description: 字典ID
+        type: integer
+    type: object
+  dict.dictQueryReq:
+    properties:
+      dict_type:
+        description: 标签类型 all 查询所有
+        type: string
+      label:
+        description: 标签名称,模糊查询Label     string `gorm:"column:label" json:"label"`
+        type: string
+    type: object
+  dict.reqList:
+    properties:
+      dict_type:
+        description: 字典类型:[all 所有]
+        type: string
+    type: object
+  dict.upReq:
+    properties:
+      created_user_id:
+        type: integer
+      dict_type:
+        type: string
+      id:
+        type: integer
+      label:
+        type: string
+      parent_id:
+        type: integer
+      value_data:
+        items:
+          type: integer
+        type: array
+    type: object
+  fileServer.PostOssConfirm:
+    properties:
+      key:
+        type: string
+      product_key:
+        type: string
+    type: object
+  fileServer.PostOssKey:
+    properties:
+      Key:
+        type: string
+    type: object
+  fileServer.PostOssUpload:
+    properties:
+      file_data:
+        description: 上传模式为local时, 需要填入文件数据
+        items:
+          type: integer
+        type: array
+      file_size:
+        type: integer
+      file_type:
+        type: string
+      project_name:
+        type: string
+      upload_type:
+        description: 文件上传模式[oss, local]
+        type: string
+    type: object
+  fileServer.Response:
+    properties:
+      code:
+        type: integer
+      data: {}
+      msg:
+        type: string
+    type: object
+  fileServer.queryReq:
+    properties:
+      path:
+        description: 文件夹路劲
+        type: string
+    type: object
+  fileServer.reqDel:
+    properties:
+      file_path:
+        type: string
+    type: object
+  fileServer.reqExist:
+    properties:
+      file_path:
+        type: string
+    type: object
+  fileServer.reqMove:
+    properties:
+      new_file_path:
+        type: string
+      old_file_path:
+        type: string
+    type: object
+  fileServer.uploadReq:
+    type: object
+  jsapi.PrepayWithRequestPaymentResponse:
+    properties:
+      appId:
+        description: 应用ID
+        type: string
+      nonceStr:
+        description: 随机字符串
+        type: string
+      package:
+        description: 订单详情扩展字符串
+        type: string
+      paySign:
+        description: 签名
+        type: string
+      prepay_id:
+        description: 预支付交易会话标识
+        type: string
+      signType:
+        description: 签名方式
+        type: string
+      timeStamp:
+        description: 时间戳
+        type: string
+    type: object
+  models.Product:
+    properties:
+      created_at:
+        description: 创建时间
+        type: integer
+      created_user_id:
+        description: 创建人
+        type: integer
+      id:
+        description: 商品ID
+        type: integer
+      price:
+        description: 商品售价
+        type: number
+      product_body:
+        description: 商品数据
+        type: string
+      product_name:
+        description: 商品名称
+        type: string
+      product_status:
+        description: 商品状态:[1上架, 2下架]
+        type: integer
+      product_type:
+        description: '商品类型: [1销售 2积分]'
+        type: integer
+      rebate_rate:
+        description: 佣金(每份商品可得佣金)
+        type: number
+      score:
+        description: 商品积分
+        type: integer
+      updated_at:
+        description: 修改时间
+        type: integer
+    type: object
+  models.ProductOrder:
+    properties:
+      address_id:
+        description: 配送地址ID
+        type: integer
+      created_at:
+        description: 下单时间
+        type: integer
+      created_user_id:
+        description: 下单人ID
+        type: integer
+      delivery_end_at:
+        description: 送达时间
+        type: integer
+      delivery_stat_at:
+        description: 接单时间
+        type: integer
+      delivery_status:
+        description: 配送状态:[1未接单, 2已接单/已发货, 3已送达, 4已取消]
+        type: integer
+      delivery_type:
+        description: 配送类型:[1同城配送, 2快递配送]
+        type: integer
+      delivery_user_id:
+        description: 配送人ID/发货人ID
+        type: integer
+      express_sn:
+        description: 快递单号
+        type: string
+      id:
+        type: integer
+      open_id:
+        type: string
+      order_sn:
+        description: 订单编号
+        type: string
+      order_type:
+        description: 订单类型:[1在线支付, 2积分支付]
+        type: integer
+      pay_status:
+        description: 支付状态:[1未支付, 2已取消或超时, 3支付完成, 4已退款]
+        type: integer
+      price:
+        description: 该单商品总金额 (商品单价 * 购买数量)
+        type: number
+      product_id:
+        description: 商品ID
+        type: integer
+      product_num:
+        description: 商品购买数量
+        type: integer
+      profitsharing_money:
+        description: 分账金额(商品分账金 * 购买数量)
+        type: number
+      profitsharing_status:
+        description: 分账状态:[1 未分账, 2 已分帐]
+        type: integer
+      referrer_id:
+        description: 推荐人ID
+        type: integer
+      refund_detail:
+        description: 退款详情
+        type: string
+      refund_examine_user:
+        description: 退款操作人ID
+        type: integer
+      refund_reason:
+        description: 退款原因
+        type: string
+      refund_status:
+        description: 退款状态:[1 正常, 2申请退款, 3驳回退款, 4同意退款]
+        type: integer
+      transaction_id:
+        description: 微信支付单号
+        type: string
+    type: object
+  models.User:
+    properties:
+      area_code:
+        type: string
+      city:
+        type: string
+      id:
+        type: integer
+      mobile:
+        type: string
+      mobile_data:
+        items:
+          type: integer
+        type: array
+      password:
+        description: 密码
+        items:
+          type: integer
+        type: array
+      user_img:
+        description: 用户头像
+        type: string
+      user_name:
+        type: string
+    type: object
+  models.WxUser:
+    properties:
+      id:
+        type: integer
+      is_profitsharing:
+        description: 是否开通分账:[1否, 2是]
+        type: integer
+      open_id:
+        type: string
+      user_id:
+        type: integer
+      user_list:
+        $ref: '#/definitions/models.User'
+        description: 用户表
+      wx_appid:
+        type: string
+    type: object
+  order.ContinuePayCheckUpReq:
+    properties:
+      id:
+        description: 订单ID
+        type: integer
+    type: object
+  order.ResOrderInfo:
+    properties:
+      orderSn:
+        type: string
+      wxJsp:
+        $ref: '#/definitions/jsapi.PrepayWithRequestPaymentResponse'
+    type: object
+  order.notifyCheckUpReq:
+    properties:
+      id:
+        description: 订单ID
+        type: integer
+      pay_status:
+        description: 支付状态:[2取消, 3支付完成]
+        type: integer
+    type: object
+  order.orderInfoReq:
+    properties:
+      id:
+        description: 订单ID
+        type: integer
+    type: object
+  order.orderListReq:
+    properties:
+      delivery_status:
+        description: 配送状态:[0所有 1未接单, 2已接单/已发货, 3已送达, 4已取消]
+        type: integer
+      order_type:
+        description: 订单类型:[0所有, 1在线支付, 2积分支付]
+        type: integer
+      pay_status:
+        description: 支付状态:[0所有 1未支付, 2已取消或超时, 3支付完成, 4退款]
+        type: integer
+      product_id:
+        description: 商品ID 0所有
+        type: integer
+      refund_status:
+        description: 退款状态:[1 正常, 2申请退款, 3驳回退款, 4同意退款]
+        type: integer
+    type: object
+  order.orderPayReq:
+    properties:
+      address_id:
+        description: 配送地址ID
+        type: integer
+      num:
+        description: 购买数量
+        type: integer
+      open_id:
+        type: string
+      price:
+        description: 总金额  = num * 商品单价
+        type: number
+      product_id:
+        description: 商品ID
+        type: integer
+      referrer_id:
+        description: 推荐人ID
+        type: integer
+    type: object
+  order.orderPayRsp:
+    properties:
+      product_order:
+        $ref: '#/definitions/models.ProductOrder'
+      wx_pay:
+        $ref: '#/definitions/order.ResOrderInfo'
+    type: object
+  order.orderQueryReq:
+    properties:
+      delivery_status:
+        description: 配送状态:[0所有, 1未接单, 2已接单/已发货, 3已送达, 4已取消]
+        type: integer
+      order_type:
+        description: 订单类型:[0所有, 1在线支付, 2积分支付]
+        type: integer
+      pay_status:
+        description: 支付状态:[0所有, 1未支付, 2已取消或超时, 3支付完成, 4退款]
+        type: integer
+      product_id:
+        description: 商品ID 0所有
+        type: integer
+      refund_status:
+        description: 退款状态:[0所有, 1 正常, 2申请退款, 3驳回退款, 4同意退款]
+        type: integer
+      user_id:
+        description: 下单人ID 0所有
+        type: integer
+    type: object
+  order.orderRefreshReq:
+    properties:
+      id:
+        description: 订单ID
+        type: integer
+    type: object
+  oss.PostOssKey:
+    properties:
+      Key:
+        type: string
+    type: object
+  oss.PostOssUpload:
+    properties:
+      file_size:
+        type: integer
+      file_type:
+        type: string
+      project_name:
+        type: string
+      upload_type:
+        description: 文件上传模式[oss, local]
+        type: string
+    type: object
+  oss.Response:
+    properties:
+      code:
+        type: integer
+      data: {}
+      msg:
+        type: string
+    type: object
+  product.productAddReq:
+    properties:
+      price:
+        description: 商品售价
+        type: number
+      product_body:
+        description: 商品数据
+        type: string
+      product_name:
+        description: 商品名称
+        type: string
+      product_status:
+        description: 商品状态:[1上架, 2下架]
+        type: integer
+      product_type:
+        description: '商品类型: [1销售 2积分兑换]'
+        type: integer
+      rebate_rate:
+        description: 佣金比例
+        type: number
+      score:
+        description: 商品积分(商品类型为2积分兑换时填入)
+        type: integer
+    type: object
+  product.productDelReq:
+    properties:
+      id:
+        description: 商品ID
+        type: integer
+    type: object
+  product.productInfoReq:
+    properties:
+      id:
+        description: 商品ID
+        type: integer
+    type: object
+  product.productQueryReq:
+    properties:
+      product_name:
+        description: 商品名称
+        type: string
+      product_status:
+        description: 商品状态:[0全部, 1上架, 2下架]
+        type: integer
+      product_type:
+        description: '商品类型: [0全部, 1销售 2积分]'
+        type: integer
+    type: object
+  product.productUpReq:
+    properties:
+      id:
+        description: 商品ID
+        type: integer
+      price:
+        description: 商品售价
+        type: number
+      product_body:
+        description: 商品数据
+        type: string
+      product_name:
+        description: 商品名称
+        type: string
+      product_status:
+        description: 商品状态:[1上架, 2下架]
+        type: integer
+      product_type:
+        description: '商品类型: [1销售 2积分兑换]'
+        type: integer
+      rebate_rate:
+        description: 佣金比例
+        type: number
+      score:
+        description: 商品积分(商品类型为2积分兑换时填入)
+        type: integer
+    type: object
+  qrcode.Color:
+    properties:
+      b:
+        type: string
+      g:
+        type: string
+      r:
+        type: string
+    type: object
+  receiver.receiverCheckReq:
+    type: object
+  receiver.receiverCloseReq:
+    type: object
+  receiver.receiverOpenReq:
+    type: object
+  receiver.receiverOrderListReq:
+    properties:
+      delivery_status:
+        description: 配送状态:[0所有 1未接单, 2已接单/已发货, 3已送达, 4已取消]
+        type: integer
+      pay_status:
+        description: 支付状态:[0所有, 1未支付, 2已取消或超时, 3支付完成, 4已退款]
+        type: integer
+      profitsharing_status:
+        description: 分账状态:[0所有, 1 未分账, 2 已分帐]
+        type: integer
+    type: object
+  receiver.receiverOrderQueryReq:
+    properties:
+      delivery_status:
+        description: 配送状态:[0所有 1未接单, 2已接单/已发货, 3已送达, 4已取消]
+        type: integer
+      pay_status:
+        description: 支付状态:[0所有, 1未支付, 2已取消或超时, 3支付完成, 4已退款]
+        type: integer
+      profitsharing_status:
+        description: 分账状态:[0所有, 1 未分账, 2 已分帐]
+        type: integer
+      user_id:
+        description: 查询指定用户(推荐人UserID), 填0为查询所有
+        type: integer
+    type: object
+  receiver.receiverOrderTotalReq:
+    type: object
+  receiver.receiverQueryReq:
+    type: object
+  receiver.receiverReceivedReq:
+    properties:
+      id:
+        description: 订单ID
+        type: integer
+    type: object
+  referrer.referrerCheckReq:
+    type: object
+  referrer.referrerCommitReq:
+    properties:
+      referrer_user_id:
+        description: 推荐人ID
+        type: integer
+    type: object
+  refund.orderQuitReq:
+    properties:
+      id:
+        description: 订单ID   -> product_order_id
+        type: integer
+      refund_detail:
+        description: '退款详情: 驳回理由, 同意退款自动生成'
+        type: string
+      refund_status:
+        description: 退款状态:[3驳回退款, 4同意退款]
+        type: integer
+    type: object
+  refund.orderRefundApplyReq:
+    properties:
+      id:
+        description: 订单ID   -> product_order_id
+        type: integer
+      refund_reason:
+        description: 退款原因
+        type: string
+    type: object
+  render.Response:
+    properties:
+      code:
+        type: integer
+      data: {}
+      msg:
+        type: string
+    type: object
+  score.orderPayReq:
+    properties:
+      address_id:
+        description: 配送地址ID
+        type: integer
+      num:
+        description: 购买数量
+        type: integer
+      product_id:
+        description: 商品ID
+        type: integer
+      score_num:
+        description: 总扣款积分 = num * 单个商品积分
+        type: integer
+    type: object
+  score.scoreListReq:
+    properties:
+      score_type:
+        description: 积分类型:[0全部, 1打卡签到, 2分享推荐, 3购物(一般为负数)]
+        type: integer
+    type: object
+  score.scoreQueryReq:
+    properties:
+      score_type:
+        description: 积分类型:[0全部, 1打卡签到, 2分享推荐, 3购物(一般为负数)]
+        type: integer
+    type: object
+  score.scoreTotalReq:
+    type: object
+  sign.signCheckReq:
+    type: object
+  sign.signInfoReq:
+    type: object
+  sign.signInfoRsp:
+    properties:
+      consecutive_score:
+        type: integer
+      consecutive3:
+        description: 连续三天
+        type: boolean
+      consecutive7:
+        description: 连续七天
+        type: boolean
+      consecutiveNum:
+        description: 连续签到几天
+        type: integer
+      list:
+        description: 打卡情况
+        items:
+          $ref: '#/definitions/signServer.SignInfo'
+        type: array
+    type: object
+  sign.signReq:
+    type: object
+  signServer.SignInfo:
+    properties:
+      is_sign:
+        description: 是否打卡
+        type: boolean
+      time_at:
+        description: 时间戳
+        type: integer
+      time_str:
+        description: 打卡时间
+        type: string
+    type: object
+  user.CodeReq:
+    properties:
+      mobile:
+        type: string
+    type: object
+  user.QueryReq:
+    properties:
+      mobile:
+        type: string
+      user_name:
+        type: string
+    type: object
+  user.getReq:
+    properties:
+      id:
+        description: user id
+        type: integer
+    type: object
+  user.userLoginReq:
+    properties:
+      code:
+        type: string
+      mobile:
+        type: string
+    type: object
+  user.userLogonReq:
+    properties:
+      mobile:
+        type: string
+      password:
+        type: string
+      user_name:
+        type: string
+    type: object
+  user.userUpReq:
+    properties:
+      area_code:
+        type: string
+      city:
+        type: string
+      id:
+        type: integer
+      mobile:
+        type: string
+      mobile_data:
+        description: 自动生成 不允许修改
+        items:
+          type: integer
+        type: array
+      password:
+        description: 密码
+        items:
+          type: integer
+        type: array
+      user_img:
+        description: 用户头像
+        type: string
+      user_name:
+        type: string
+    type: object
+  wxMini.QrCodeReq:
+    properties:
+      auto_color:
+        description: autoColor 自动配置线条颜色，如果颜色依然是黑色，则说明不建议配置主色调，默认false
+        type: boolean
+      check_path:
+        description: checkPath 检查page 是否存在，为 true 时 page 必须是已经发布的小程序存在的页面（否则报错）；为
+          false 时允许小程序未发布或者 page 不存在， 但page 有数量上限（60000个）请勿滥用，默认true
+        type: boolean
+      env_version:
+        description: envVersion 要打开的小程序版本。正式版为 "release"，体验版为 "trial"，开发版为 "develop"
+        type: string
+      is_hyaline:
+        description: isHyaline 是否需要透明底色，默认false
+        type: boolean
+      line_color:
+        $ref: '#/definitions/qrcode.Color'
+        description: lineColor AutoColor 为 false 时生效，使用 rgb 设置颜色 例如 {"r":"xxx","g":"xxx","b":"xxx"},十进制表示
+      page:
+        description: page 必须是已经发布的小程序存在的页面,根路径前不要填加 /,不能携带参数（参数请放在scene字段里），如果不填写这个字段，默认跳主页面
+        type: string
+      path:
+        description: path 扫码进入的小程序页面路径
+        type: string
+      scene:
+        description: scene 最大32个可见字符，只支持数字，大小写英文以及部分特殊字符：!#$&'()*+,/:;=?@-._~，其它字符请自行编码为合法字符（因不支持%，中文无法使用
+          urlencode 处理，请使用其他编码方式）
+        type: string
+      width:
+        description: width 图片宽度
+        type: integer
+    type: object
+  wxMini.getPhoneReq:
+    properties:
+      code:
+        type: string
+    type: object
+  wxMini.wxMiniDecryptReq:
+    properties:
+      encrypted_data:
+        type: string
+      iv:
+        type: string
+      session_key:
+        type: string
+    type: object
+  wxMini.wxMiniLoginReq:
+    properties:
+      app_id:
+        type: string
+      js_code:
+        description: 必填
+        type: string
+    type: object
+  wxMini.wxMiniRegisterReq:
+    properties:
+      app_id:
+        type: string
+      mobile:
+        type: string
+      open_id:
+        type: string
+    type: object
+  wxOfficial.wechatShareReq:
+    properties:
+      appId:
+        type: string
+      url:
+        type: string
+    type: object
+  wxOfficial.wxMiniLoginReq:
+    properties:
+      app_id:
+        type: string
+      js_code:
+        description: 必填
+        type: string
+    type: object
+  wxOfficial.wxMiniRegisterReq:
+    properties:
+      code:
+        type: string
+      mobile:
+        type: string
+      open_id:
+        type: string
+    required:
+    - code
+    - mobile
+    - open_id
+    type: object
+  wxOfficial.wxOfficialInfoReq:
+    properties:
+      open_id:
+        type: string
+    type: object
+host: 127.0.0.1:22918
+info:
+  contact: {}
+  description: 医院系统
+  termsOfService: http://127.0.0.1:22112
+  title: chatmono
+  version: "1.0"
+paths:
+  /api/dict/created:
+    post:
+      consumes:
+      - application/json
+      description: 创建字典
+      parameters:
+      - description: 参数
+        in: body
+        name: root
+        required: true
+        schema:
+          $ref: '#/definitions/dict.dictCreatedReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/render.Response'
+      summary: 创建字典
+      tags:
+      - 字典管理
+  /api/dict/del:
+    post:
+      consumes:
+      - application/json
+      description: 删除字典
+      parameters:
+      - description: 参数
+        in: body
+        name: root
+        required: true
+        schema:
+          $ref: '#/definitions/dict.dictDelReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/render.Response'
+      summary: 删除字典
+      tags:
+      - 字典管理
+  /api/dict/get:
+    post:
+      consumes:
+      - application/json
+      description: 获取字典信息
+      parameters:
+      - description: 参数
+        in: body
+        name: root
+        required: true
+        schema:
+          $ref: '#/definitions/dict.GetReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/render.Response'
+      summary: 获取字典信息
+      tags:
+      - 字典管理
+  /api/dict/list:
+    post:
+      consumes:
+      - application/json
+      description: 字典列表
+      parameters:
+      - description: 参数
+        in: body
+        name: root
+        required: true
+        schema:
+          $ref: '#/definitions/dict.reqList'
+      - description: 页数
+        in: query
+        name: page
+        required: true
+        type: integer
+      - description: 页展示条数
+        in: query
+        name: page_size
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/render.Response'
+      summary: 字典列表
+      tags:
+      - 字典管理
+  /api/dict/query:
+    post:
+      consumes:
+      - application/json
+      description: 字典查询
+      parameters:
+      - description: 参数
+        in: body
+        name: root
+        required: true
+        schema:
+          $ref: '#/definitions/dict.dictQueryReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/render.Response'
+      summary: 字典查询
+      tags:
+      - 字典管理
+  /api/dict/up:
+    post:
+      consumes:
+      - application/json
+      description: 修改字典
+      parameters:
+      - description: 参数
+        in: body
+        name: root
+        required: true
+        schema:
+          $ref: '#/definitions/dict.upReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/render.Response'
+      summary: 修改字典
+      tags:
+      - 字典管理
+  /api/order/continue/pay:
+    post:
+      consumes:
+      - application/json
+      description: 订单继续支付
+      parameters:
+      - description: 参数
+        in: body
+        name: root
+        required: true
+        schema:
+          $ref: '#/definitions/order.ContinuePayCheckUpReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/render.Response'
+      summary: 订单继续支付
+      tags:
+      - 订单管理
+  /api/order/delivery/up:
+    post:
+      consumes:
+      - application/json
+      description: 修改配送状态(如果配送状态为已送到, 将触发分账, 并返回分账信息data['profitsharing'])
+      parameters:
+      - description: 参数
+        in: body
+        name: root
+        required: true
+        schema:
+          $ref: '#/definitions/delivery.deliveryUpReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/render.Response'
+      summary: 修改配送状态
+      tags:
+      - 订单管理
+  /api/order/info:
+    post:
+      consumes:
+      - application/json
+      description: 订单详情
+      parameters:
+      - description: 参数
+        in: body
+        name: root
+        required: true
+        schema:
+          $ref: '#/definitions/order.orderInfoReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/render.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.ProductOrder'
+              type: object
+      summary: 订单详情
+      tags:
+      - 订单管理
+  /api/order/list:
+    post:
+      consumes:
+      - application/json
+      description: 我的订单
+      parameters:
+      - description: 参数
+        in: body
+        name: root
+        required: true
+        schema:
+          $ref: '#/definitions/order.orderListReq'
+      - description: 页数
+        in: query
+        name: page
+        required: true
+        type: integer
+      - description: 页展示条数
+        in: query
+        name: page_size
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/render.Response'
+      summary: 我的订单
+      tags:
+      - 订单管理
+  /api/order/notify/checkup:
+    post:
+      consumes:
+      - application/json
+      description: 订单回调
+      parameters:
+      - description: 参数
+        in: body
+        name: root
+        required: true
+        schema:
+          $ref: '#/definitions/order.notifyCheckUpReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/render.Response'
+      summary: 订单回调
+      tags:
+      - 订单管理
+  /api/order/pay:
+    post:
+      consumes:
+      - application/json
+      description: 下单
+      parameters:
+      - description: 参数
+        in: body
+        name: root
+        required: true
+        schema:
+          $ref: '#/definitions/order.orderPayReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/render.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/order.orderPayRsp'
+              type: object
+      summary: 下单
+      tags:
+      - 订单管理
+  /api/order/query:
+    post:
+      consumes:
+      - application/json
+      description: 订单查询
+      parameters:
+      - description: 参数
+        in: body
+        name: root
+        required: true
+        schema:
+          $ref: '#/definitions/order.orderQueryReq'
+      - description: 页数
+        in: query
+        name: page
+        required: true
+        type: integer
+      - description: 页展示条数
+        in: query
+        name: page_size
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/render.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.ProductOrder'
+              type: object
+      summary: 订单查询
+      tags:
+      - 订单管理
+  /api/order/refresh:
+    post:
+      consumes:
+      - application/json
+      description: 刷新订单
+      parameters:
+      - description: 参数
+        in: body
+        name: root
+        required: true
+        schema:
+          $ref: '#/definitions/order.orderRefreshReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/render.Response'
+      summary: 刷新订单
+      tags:
+      - 订单管理
+  /api/order/refund/apply:
+    post:
+      consumes:
+      - application/json
+      description: 退款申请
+      parameters:
+      - description: 参数
+        in: body
+        name: root
+        required: true
+        schema:
+          $ref: '#/definitions/refund.orderRefundApplyReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/render.Response'
+      summary: 退款申请
+      tags:
+      - 订单管理
+  /api/order/refund/quit:
+    post:
+      consumes:
+      - application/json
+      description: 订单退款
+      parameters:
+      - description: 参数
+        in: body
+        name: root
+        required: true
+        schema:
+          $ref: '#/definitions/refund.orderQuitReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/render.Response'
+      summary: 订单退款
+      tags:
+      - 订单管理
+  /api/product/add:
+    post:
+      consumes:
+      - application/json
+      description: 添加商品(管理员权限)
+      parameters:
+      - description: 参数
+        in: body
+        name: root
+        required: true
+        schema:
+          $ref: '#/definitions/product.productAddReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/render.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.Product'
+              type: object
+      summary: 添加商品
+      tags:
+      - 商品管理
+  /api/product/del:
+    post:
+      consumes:
+      - application/json
+      description: 商品删除
+      parameters:
+      - description: 参数
+        in: body
+        name: root
+        required: true
+        schema:
+          $ref: '#/definitions/product.productDelReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/render.Response'
+      summary: 商品删除
+      tags:
+      - 商品管理
+  /api/product/info:
+    post:
+      consumes:
+      - application/json
+      description: 商品信息
+      parameters:
+      - description: 参数
+        in: body
+        name: root
+        required: true
+        schema:
+          $ref: '#/definitions/product.productInfoReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/render.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.Product'
+              type: object
+      summary: 商品信息
+      tags:
+      - 商品管理
+  /api/product/query:
+    post:
+      consumes:
+      - application/json
+      description: 商品查询
+      parameters:
+      - description: 参数
+        in: body
+        name: root
+        required: true
+        schema:
+          $ref: '#/definitions/product.productQueryReq'
+      - description: 页数
+        in: query
+        name: page
+        required: true
+        type: integer
+      - description: 页展示条数
+        in: query
+        name: page_size
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/render.Response'
+      summary: 商品查询
+      tags:
+      - 商品管理
+  /api/product/up:
+    post:
+      consumes:
+      - application/json
+      description: 修改商品
+      parameters:
+      - description: 参数
+        in: body
+        name: root
+        required: true
+        schema:
+          $ref: '#/definitions/product.productUpReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/render.Response'
+      summary: 修改商品
+      tags:
+      - 商品管理
+  /api/receiver/check:
+    post:
+      consumes:
+      - application/json
+      description: 查询是否开通分销
+      parameters:
+      - description: 参数
+        in: body
+        name: root
+        required: true
+        schema:
+          $ref: '#/definitions/receiver.receiverCheckReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/render.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.WxUser'
+              type: object
+      summary: 查询是否开通分销
+      tags:
+      - 分销管理
+  /api/receiver/close:
+    post:
+      consumes:
+      - application/json
+      description: 关闭分销
+      parameters:
+      - description: 参数
+        in: body
+        name: root
+        required: true
+        schema:
+          $ref: '#/definitions/receiver.receiverCloseReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/render.Response'
+      summary: 关闭分销
+      tags:
+      - 分销管理
+  /api/receiver/open:
+    post:
+      consumes:
+      - application/json
+      description: 开通分销模式(需要公众号登录绑定过openID, 分销金额打进用户钱包)
+      parameters:
+      - description: 参数
+        in: body
+        name: root
+        required: true
+        schema:
+          $ref: '#/definitions/receiver.receiverOpenReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/render.Response'
+      summary: 开通分销模式
+      tags:
+      - 分销管理
+  /api/receiver/order/list:
+    post:
+      consumes:
+      - application/json
+      description: 我的分账订单
+      parameters:
+      - description: 参数
+        in: body
+        name: root
+        required: true
+        schema:
+          $ref: '#/definitions/receiver.receiverOrderListReq'
+      - description: 页数
+        in: query
+        name: page
+        required: true
+        type: integer
+      - description: 页展示条数
+        in: query
+        name: page_size
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/render.Response'
+      summary: 我的分账订单
+      tags:
+      - 分销管理
+  /api/receiver/order/query:
+    post:
+      consumes:
+      - application/json
+      description: 查询分销单(一般只存在两种情况 已分帐or未分账, 但是特殊情况已经退款不在考虑范围内, 因此存在已退款已分帐这种需要人为处理)
+      parameters:
+      - description: 参数
+        in: body
+        name: root
+        required: true
+        schema:
+          $ref: '#/definitions/receiver.receiverOrderQueryReq'
+      - description: 页数
+        in: query
+        name: page
+        required: true
+        type: integer
+      - description: 页展示条数
+        in: query
+        name: page_size
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/render.Response'
+      summary: 查询分销单
+      tags:
+      - 分销管理
+  /api/receiver/order/total:
+    post:
+      consumes:
+      - application/json
+      description: 我的分销金汇总(未到账金额包含未付款)
+      parameters:
+      - description: 参数
+        in: body
+        name: root
+        required: true
+        schema:
+          $ref: '#/definitions/receiver.receiverOrderTotalReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/render.Response'
+      summary: 我的分销金汇总
+      tags:
+      - 分销管理
+  /api/receiver/query:
+    post:
+      consumes:
+      - application/json
+      description: 分销商查询
+      parameters:
+      - description: 参数
+        in: body
+        name: root
+        required: true
+        schema:
+          $ref: '#/definitions/receiver.receiverQueryReq'
+      - description: 页数
+        in: query
+        name: page
+        required: true
+        type: integer
+      - description: 页展示条数
+        in: query
+        name: page_size
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/render.Response'
+      summary: 分销商查询
+      tags:
+      - 分销管理
+  /api/receiver/received:
+    post:
+      consumes:
+      - application/json
+      description: 确认分账
+      parameters:
+      - description: 参数
+        in: body
+        name: root
+        required: true
+        schema:
+          $ref: '#/definitions/receiver.receiverReceivedReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/render.Response'
+      summary: 确认分账
+      tags:
+      - 分销管理
+  /api/referrer/check:
+    post:
+      consumes:
+      - application/json
+      description: 查询是否已经有推荐人
+      parameters:
+      - description: 参数
+        in: body
+        name: root
+        required: true
+        schema:
+          $ref: '#/definitions/referrer.referrerCheckReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/render.Response'
+      summary: 查询是否已经有推荐人
+      tags:
+      - 推荐管理
+  /api/referrer/commit:
+    post:
+      consumes:
+      - application/json
+      description: 提交成为被推荐人
+      parameters:
+      - description: 参数
+        in: body
+        name: root
+        required: true
+        schema:
+          $ref: '#/definitions/referrer.referrerCommitReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/render.Response'
+      summary: 提交成为被推荐人
+      tags:
+      - 推荐管理
+  /api/score/list:
+    post:
+      consumes:
+      - application/json
+      description: 我的积分
+      parameters:
+      - description: 参数
+        in: body
+        name: root
+        required: true
+        schema:
+          $ref: '#/definitions/score.scoreListReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/render.Response'
+      summary: 我的积分
+      tags:
+      - 积分管理
+  /api/score/pay:
+    post:
+      consumes:
+      - application/json
+      description: 积分购买
+      parameters:
+      - description: 参数
+        in: body
+        name: root
+        required: true
+        schema:
+          $ref: '#/definitions/score.orderPayReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/render.Response'
+      summary: 积分购买
+      tags:
+      - 积分管理
+  /api/score/query:
+    post:
+      consumes:
+      - application/json
+      description: 查询他人积分获取情况
+      parameters:
+      - description: 参数
+        in: body
+        name: root
+        required: true
+        schema:
+          $ref: '#/definitions/score.scoreQueryReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/render.Response'
+      summary: 查询他人积分获取情况
+      tags:
+      - 积分管理
+  /api/score/total:
+    post:
+      consumes:
+      - application/json
+      description: 我的总积分
+      parameters:
+      - description: 参数
+        in: body
+        name: root
+        required: true
+        schema:
+          $ref: '#/definitions/score.scoreTotalReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/render.Response'
+      summary: 我的总积分
+      tags:
+      - 积分管理
+  /api/server/config:
+    post:
+      description: 获取上传文件配置信息
+      parameters:
+      - description: 登录用户token
+        in: header
+        name: token
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/oss.Response'
+      summary: 获取上传文件配置信息
+      tags:
+      - 上传文件
+  /api/server/oss/confirm:
+    post:
+      description: 上传确认
+      parameters:
+      - description: 登录用户token
+        in: header
+        name: token
+        required: true
+        type: string
+      - description: 上传参数
+        in: body
+        name: root
+        required: true
+        schema:
+          $ref: '#/definitions/fileServer.PostOssConfirm'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/fileServer.Response'
+      summary: 上传确认
+      tags:
+      - 上传文件
+  /api/server/oss/delete:
+    post:
+      description: 删除
+      parameters:
+      - description: 登录用户token
+        in: header
+        name: token
+        required: true
+        type: string
+      - description: 上传参数
+        in: body
+        name: root
+        required: true
+        schema:
+          $ref: '#/definitions/oss.PostOssKey'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/oss.Response'
+      summary: 删除
+      tags:
+      - 上传文件
+  /api/server/oss/isExist:
+    post:
+      description: 查看是否存在
+      parameters:
+      - description: 登录用户token
+        in: header
+        name: token
+        required: true
+        type: string
+      - description: 上传参数
+        in: body
+        name: root
+        required: true
+        schema:
+          $ref: '#/definitions/oss.PostOssKey'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/oss.Response'
+      summary: 查看是否存在
+      tags:
+      - 上传文件
+  /api/server/oss/upload:
+    post:
+      description: 上传
+      parameters:
+      - description: 登录用户token
+        in: header
+        name: token
+        required: true
+        type: string
+      - description: 上传参数
+        in: body
+        name: root
+        required: true
+        schema:
+          $ref: '#/definitions/oss.PostOssUpload'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/oss.Response'
+      summary: 上传
+      tags:
+      - 上传文件
+  /api/sign/:
+    post:
+      consumes:
+      - application/json
+      description: 打卡签到(返回今日第几个签到) 7天以上7分, 否则1天1分 2天2分 3天3分
+      parameters:
+      - description: 参数
+        in: body
+        name: root
+        required: true
+        schema:
+          $ref: '#/definitions/sign.signReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/render.Response'
+      summary: 打卡签到
+      tags:
+      - 打卡签到
+  /api/sign/check:
+    post:
+      consumes:
+      - application/json
+      description: 查询今日是否签到
+      parameters:
+      - description: 参数
+        in: body
+        name: root
+        required: true
+        schema:
+          $ref: '#/definitions/sign.signCheckReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/render.Response'
+      summary: 查询今日是否签到
+      tags:
+      - 打卡签到
+  /api/sign/info:
+    post:
+      consumes:
+      - application/json
+      description: 近7天打卡信息
+      parameters:
+      - description: 参数
+        in: body
+        name: root
+        required: true
+        schema:
+          $ref: '#/definitions/sign.signInfoReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/render.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/sign.signInfoRsp'
+              type: object
+      summary: 近7天打卡信息
+      tags:
+      - 打卡签到
+  /api/user/Query:
+    post:
+      consumes:
+      - application/json
+      description: 查询用户
+      parameters:
+      - description: 参数
+        in: body
+        name: root
+        required: true
+        schema:
+          $ref: '#/definitions/user.QueryReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/render.Response'
+      summary: 查询用户
+      tags:
+      - 用户管理
+  /api/user/Up:
+    post:
+      consumes:
+      - application/json
+      description: 修改个人信息
+      parameters:
+      - description: 参数
+        in: body
+        name: root
+        required: true
+        schema:
+          $ref: '#/definitions/user.userUpReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/render.Response'
+      summary: 修改个人信息
+      tags:
+      - 用户管理
+  /api/user/code:
+    post:
+      consumes:
+      - application/json
+      description: 发送验证码, 填写手机号,后端将发送验证码到指定手机, 然后调用验证码登录接口 填入对应的验证码登录(5分钟内失效)
+      parameters:
+      - description: 参数
+        in: body
+        name: root
+        required: true
+        schema:
+          $ref: '#/definitions/user.CodeReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/render.Response'
+      summary: 发送验证码
+      tags:
+      - 用户管理
+  /api/user/get:
+    post:
+      consumes:
+      - application/json
+      description: 获取用户详细信息
+      parameters:
+      - description: 参数
+        in: body
+        name: root
+        required: true
+        schema:
+          $ref: '#/definitions/user.getReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/render.Response'
+      summary: 获取用户详细信息
+      tags:
+      - 用户管理
+  /api/user/login:
+    post:
+      consumes:
+      - application/json
+      description: 登录, 通过验证码登录
+      parameters:
+      - description: 参数
+        in: body
+        name: root
+        required: true
+        schema:
+          $ref: '#/definitions/user.userLoginReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/render.Response'
+      summary: 登录
+      tags:
+      - 用户管理
+  /api/user/logon:
+    post:
+      consumes:
+      - application/json
+      description: 注册
+      parameters:
+      - description: 参数
+        in: body
+        name: root
+        required: true
+        schema:
+          $ref: '#/definitions/user.userLogonReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/render.Response'
+      summary: 注册
+      tags:
+      - 用户管理
+  /api/wxMini/decrypt:
+    post:
+      consumes:
+      - application/json
+      description: 数据解密
+      parameters:
+      - description: 参数
+        in: body
+        name: root
+        required: true
+        schema:
+          $ref: '#/definitions/wxMini.wxMiniDecryptReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/render.Response'
+      summary: 数据解密
+      tags:
+      - 小程序
+  /api/wxMini/getMobile:
+    post:
+      consumes:
+      - application/json
+      description: 通过code获取手机号
+      parameters:
+      - description: 参数
+        in: body
+        name: root
+        required: true
+        schema:
+          $ref: '#/definitions/wxMini.getPhoneReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/render.Response'
+      summary: 通过code获取手机号
+      tags:
+      - 小程序
+  /api/wxMini/login:
+    post:
+      consumes:
+      - application/json
+      description: 微信登录
+      parameters:
+      - description: 参数
+        in: body
+        name: root
+        required: true
+        schema:
+          $ref: '#/definitions/wxMini.wxMiniLoginReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/render.Response'
+      summary: 微信登录
+      tags:
+      - 小程序
+  /api/wxMini/qrCode:
+    post:
+      consumes:
+      - application/json
+      description: 生成二维码
+      parameters:
+      - description: 参数
+        in: body
+        name: root
+        required: true
+        schema:
+          $ref: '#/definitions/wxMini.QrCodeReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/render.Response'
+      summary: 生成二维码
+      tags:
+      - 小程序
+  /api/wxMini/register:
+    post:
+      consumes:
+      - application/json
+      description: 小程序注册账号
+      parameters:
+      - description: 参数
+        in: body
+        name: root
+        required: true
+        schema:
+          $ref: '#/definitions/wxMini.wxMiniRegisterReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/render.Response'
+      summary: 小程序注册账号
+      tags:
+      - 小程序
+  /api/wxOfficial/info:
+    post:
+      consumes:
+      - application/json
+      description: 获取用户信息
+      parameters:
+      - description: 参数
+        in: body
+        name: root
+        required: true
+        schema:
+          $ref: '#/definitions/wxOfficial.wxOfficialInfoReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/render.Response'
+      summary: 获取用户信息
+      tags:
+      - 公众号
+  /api/wxOfficial/login:
+    post:
+      consumes:
+      - application/json
+      description: 微信登录
+      parameters:
+      - description: 参数
+        in: body
+        name: root
+        required: true
+        schema:
+          $ref: '#/definitions/wxOfficial.wxMiniLoginReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/render.Response'
+      summary: 微信登录
+      tags:
+      - wxOfficial
+  /api/wxOfficial/register:
+    post:
+      consumes:
+      - application/json
+      description: 公众号注册账号
+      parameters:
+      - description: 参数
+        in: body
+        name: root
+        required: true
+        schema:
+          $ref: '#/definitions/wxOfficial.wxMiniRegisterReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/render.Response'
+      summary: 公众号注册账号
+      tags:
+      - 公众号
+  /api/wxOfficial/share:
+    post:
+      consumes:
+      - application/json
+      description: 公众号分享
+      parameters:
+      - description: 参数
+        in: body
+        name: root
+        required: true
+        schema:
+          $ref: '#/definitions/wxOfficial.wechatShareReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/render.Response'
+      summary: 公众号分享
+      tags:
+      - 公众号
+  /fileServer/del:
+    post:
+      consumes:
+      - application/json
+      description: 文件删除
+      parameters:
+      - description: 参数
+        in: body
+        name: root
+        required: true
+        schema:
+          $ref: '#/definitions/fileServer.reqDel'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/render.Response'
+      summary: 文件删除
+      tags:
+      - 文件管理
+  /fileServer/exist:
+    post:
+      consumes:
+      - application/json
+      description: 查询文件是否存在
+      parameters:
+      - description: 参数
+        in: body
+        name: root
+        required: true
+        schema:
+          $ref: '#/definitions/fileServer.reqExist'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/render.Response'
+      summary: 查询文件是否存在
+      tags:
+      - 文件管理
+  /fileServer/move:
+    post:
+      consumes:
+      - application/json
+      description: 文件移动
+      parameters:
+      - description: 参数
+        in: body
+        name: root
+        required: true
+        schema:
+          $ref: '#/definitions/fileServer.reqMove'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/render.Response'
+      summary: 文件移动
+      tags:
+      - 文件管理
+  /fileServer/query:
+    post:
+      consumes:
+      - application/json
+      description: 查看目录
+      parameters:
+      - description: 参数
+        in: body
+        name: root
+        required: true
+        schema:
+          $ref: '#/definitions/fileServer.queryReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/render.Response'
+      summary: 查看目录
+      tags:
+      - 文件管理
+  /fileServer/upload:
+    post:
+      consumes:
+      - application/json
+      description: 文件上传
+      parameters:
+      - description: 参数
+        in: body
+        name: root
+        required: true
+        schema:
+          $ref: '#/definitions/fileServer.uploadReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/render.Response'
+      summary: 文件上传
+      tags:
+      - 文件管理
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Token
+    type: apiKey
+swagger: "2.0"
