@@ -20,6 +20,7 @@ func Router(api iris.Party) {
 	r.Post("/up", user2.Login, PostUp)
 	r.Post("/get", user2.Login, Get)
 	r.Post("/login", PostLogin)
+	r.Post("/login2", Login2)
 	r.Post("/code", Code)
 
 	//

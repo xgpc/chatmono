@@ -13,6 +13,7 @@ type userLogonReq struct {
 	Mobile   string `json:"mobile"`
 	UserName string `json:"user_name"`
 	Password string `json:"password"`
+	UserImg  string `json:"user_img"`
 }
 
 // Logon 注册
@@ -49,7 +50,7 @@ func Logon(ctx iris.Context) {
 	err := p.DB().Model(&userInfo).
 		Where(models.UserColumns.MobileData, aes.EnCode(param.Mobile)).
 		Attrs(models.User{
-
+			UserImg:    param.UserImg,
 			UserName:   param.UserName,
 			MobileData: aes.EnCode(param.Mobile),
 			Mobile:     aes.EnMobile(param.Mobile),
