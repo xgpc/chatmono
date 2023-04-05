@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { DownOutlined } from '@ant-design/icons';
 import { Avatar, Col, Drawer, MenuProps, Modal, Row } from 'antd';
 import { Dropdown, Space } from 'antd';
-import AvatarSelector from "@/components/UserImage"
+import AvatarSelector from "@/components/User/UserImage"
 import BuyMember from "@/components/BuyMember"
 import UserInfo from './UserInfo';
 import UserLogin from './UserLogin';
