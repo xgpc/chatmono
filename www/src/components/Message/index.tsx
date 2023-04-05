@@ -18,8 +18,6 @@ const App: React.FC = () => {
   // 获取拿到的sessionData
   // 渲染对应的视图
 
-  const sleep = () => new Promise(resolve => setTimeout(resolve, 2000))
-
   const cleanonClick = () => {
     setsessionData([])
   }
@@ -34,19 +32,21 @@ const App: React.FC = () => {
 
     setisSpinning(true);
 
-    await sleep();
 
     // 测试发送数据
-    await sendMessage({messages:sessionData}).then((res:any)=>{
+    await sendMessage({ messages: sessionData }).then((res: any) => {
 
       if (res.code == 0) {
         data.push(res.data.choices[0].message)
+        setsessionData([...data])
+        
       }
-    })
+    }).catch((e) => {
+      console.log(e);
 
-    console.log(data);
-    setisSpinning(false);
-    setsessionData([...data])
+    }).finally(() => {
+      setisSpinning(false);
+    })
 
   }
 
@@ -66,7 +66,7 @@ const App: React.FC = () => {
       <Spin tip="Loading..." spinning={isSpinning}>
         {/* <SessionView sessionList={sessionData}></SessionView> */}
         <MessageList messages={sessionData} AvatarPath={''} ></MessageList>
-      
+
         <Button onClick={cleanonClick}> 清空会话 </Button>
         <SessionInput onChange={getInput} value={''}></SessionInput>
       </Spin>

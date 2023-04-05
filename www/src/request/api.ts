@@ -10,6 +10,13 @@ export function sendMessage( params:object):Promise<void>{
 
 export function login(params:object):Promise<void>{
 
-    let url:string = `/api/user/login`
+    let url:string = `/api/user/login2`
+    return axios.post(url, params);
+}
+
+
+export function logon(params:object):Promise<void>{
+
+    let url:string = `/api/user/logon`
     return axios.post(url, params);
 }

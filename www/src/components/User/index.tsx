@@ -10,11 +10,7 @@ import UserLogin from './UserLogin';
 
 const App: React.FC = () => {
 
-  const [avatar, setAvatar] = useState('点击登录');
 
-  const handleAvatarChange = (newAvatar: React.SetStateAction<string>) => {
-    setAvatar(newAvatar);
-  };
 
     // 用户信息
     const [Draweropen, setDraweropen] = useState(false);
@@ -61,11 +57,11 @@ const App: React.FC = () => {
 
       <Row justify="end">
       {/* <BuyMember></BuyMember> */}
-        {/* <AvatarSelector value={avatar} onChange={handleAvatarChange} /> */}
+        
        
         <Col span={4} onClick={AvataronClick} style={{color:"red", background:'rgba(	0, 191, 255, 0.5)' }}>
         <Row justify="end">
-        <p style={{ marginTop: '12px' }}> {avatar} </p>
+        <p style={{ marginTop: '12px' }}> {'点击登录'} </p>
           <Avatar size={64} src={''} />    
           </Row>
         </Col>
