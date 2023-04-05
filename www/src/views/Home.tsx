@@ -18,21 +18,6 @@ import UserMenu from '@/components/User'
 
 const { Header, Content, Footer, Sider } = Layout;
 
-const contentStyle: React.CSSProperties = {
-  textAlign: 'center',
-  minHeight: 120,
-  lineHeight: '120px',
-  color: '#fff',
-  backgroundColor: '#108ee9',
-};
-
-const siderStyle: React.CSSProperties = {
-  textAlign: 'center',
-  lineHeight: '120px',
-  color: '#fff',
-  backgroundColor: '#3ba0e9',
-};
-
 const View: React.FC = () => {
   //antd 数据
   const [collapsed, setCollapsed] = useState(false);

@@ -5,6 +5,7 @@ import { sendMessage } from '@/request/api'
 import { Alert, Button, FloatButton, Input, Spin } from 'antd'
 
 import Notice from '@/components/Notice'
+import MessageList from './MessageList'
 
 
 const App: React.FC = () => {
@@ -63,7 +64,8 @@ const App: React.FC = () => {
 
 
       <Spin tip="Loading..." spinning={isSpinning}>
-        <SessionView sessionList={sessionData}></SessionView>
+        {/* <SessionView sessionList={sessionData}></SessionView> */}
+        <MessageList messages={sessionData} AvatarPath={''} ></MessageList>
       
         <Button onClick={cleanonClick}> 清空会话 </Button>
         <SessionInput onChange={getInput} value={''}></SessionInput>
