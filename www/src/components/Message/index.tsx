@@ -5,7 +5,7 @@ import { sendMessage } from '@/request/api'
 import { Alert, Button, FloatButton, Input, Spin } from 'antd'
 
 import Notice from '@/components/Notice'
-import Demo from '../Demo'
+
 
 const App: React.FC = () => {
   let sessionDataStr: any[] | (() => any[]) = []
@@ -36,12 +36,12 @@ const App: React.FC = () => {
     await sleep();
 
     // 测试发送数据
-    // await sendMessage({messages:sessionData}).then((res:any)=>{
+    await sendMessage({messages:sessionData}).then((res:any)=>{
 
-    //   if (res.code == 0) {
-    //     data.push(res.data.choices[0].message)
-    //   }
-    // })
+      if (res.code == 0) {
+        data.push(res.data.choices[0].message)
+      }
+    })
 
     console.log(data);
     setisSpinning(false);
