@@ -51,7 +51,7 @@ const App: React.FC = () => {
         setNum(num + 1)
     };
     
-
+    
 
     const [api, contextHolder] = notification.useNotification();
 
@@ -97,6 +97,7 @@ const App: React.FC = () => {
      <Button onClick={handleClickAdd}>Add Menu</Button>
      <Button onClick={handleClickDel}>Del Menu</Button>
       <Menu
+      style={{ height:'100%' ,overflow:'auto'}}
         // defaultSelectedKeys={[currentRoute]}
         mode="inline"
         onClick={menuClick}

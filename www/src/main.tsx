@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 
 // 清理样式
-// import 'reset-css'
+import 'reset-css'
 
 
 import App from "./App"

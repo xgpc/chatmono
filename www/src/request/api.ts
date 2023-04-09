@@ -20,3 +20,11 @@ export function logon(params:object):Promise<void>{
     let url:string = `/api/user/logon`
     return axios.post(url, params);
 }
+
+
+
+export function userInfo(params:object):Promise<void>{
+
+    let url:string = `/api/user/info`
+    return axios.post(url, params);
+}

@@ -2,16 +2,20 @@ import SessionView from './SessionView'
 import SessionInput from './SessionInput'
 import { useState } from 'react'
 import { sendMessage } from '@/request/api'
-import { Alert, Button, FloatButton, Input, Spin } from 'antd'
+import { Alert, Button, FloatButton, Input, Layout, Spin } from 'antd'
 
-import Notice from '@/components/Notice'
 import MessageList from './MessageList'
+import SessionList from '../SessionList'
+import Sider from 'antd/es/layout/Sider'
+import { Content } from 'antd/es/layout/layout'
 
+import Loading from '@/components/Loading'
 
 const App: React.FC = () => {
   let sessionDataStr: any[] | (() => any[]) = []
 
   const [sessionData, setsessionData] = useState(sessionDataStr)
+  const [data, setData] = useState('')
   const [isSpinning, setisSpinning] = useState(false)
 
   // 获取拿到的SessionKey
@@ -23,23 +27,22 @@ const App: React.FC = () => {
   }
 
   const getInput = async (e: string) => {
-    let data = sessionData
+    let sessionList = sessionData
 
-    data.push({
+    sessionList.push({
       role: 'user',
       content: e
     })
 
     setisSpinning(true);
 
-
     // 测试发送数据
     await sendMessage({ messages: sessionData }).then((res: any) => {
 
       if (res.code == 0) {
-        data.push(res.data.choices[0].message)
-        setsessionData([...data])
-        
+        sessionList.push(res.data.choices[0].message)
+        setsessionData([...sessionList])
+        setData('')
       }
     }).catch((e) => {
       console.log(e);
@@ -50,35 +53,29 @@ const App: React.FC = () => {
 
   }
 
-
-
-
   return (
-    <>
-      {/* 通知暂时放在这 */}
 
-      <Notice></Notice>
-
-
-      {/* <Demo></Demo> */}
-
-
-      <Spin tip="Loading..." spinning={isSpinning}>
-        {/* <SessionView sessionList={sessionData}></SessionView> */}
-        <MessageList messages={sessionData} AvatarPath={''} ></MessageList>
-
-        <Button onClick={cleanonClick}> 清空会话 </Button>
-        <SessionInput onChange={getInput} value={''}></SessionInput>
-      </Spin>
+    <Layout style={{ height: '100%', overflow: 'hidden' }}>
+      <Sider style={{ backgroundColor: '#FFFF', height: '100%' }}>
+        <SessionList></SessionList>
+      </Sider>
+      
+      <Content style={
+        { minHeight: '', overflow: 'hidden' }
+      }>
 
 
-    </>
+          <MessageList messages={sessionData} AvatarPath={''} ></MessageList>
+          <Button onClick={cleanonClick} style={{}}> 清空会话 </Button>
+          <Button onClick={()=>{setisSpinning(true)}} style={{}}> 提前结束 </Button>
+          <Spin spinning={isSpinning}>
+          <SessionInput onChange={getInput} value={data}></SessionInput>
+          </Spin>
+      </Content>
+      
+    </Layout>
+    
   )
 
 }
-
 export default App;
-
-function res(value: void): void | PromiseLike<void> {
-  throw new Error('Function not implemented.')
-}

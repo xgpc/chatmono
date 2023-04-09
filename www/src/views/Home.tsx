@@ -15,48 +15,36 @@ import MainMenu from '@/components/MainMenu'
 import MessageView from '@/components/Message'
 import SessionList from '@/components/SessionList'
 import UserMenu from '@/components/User'
+import Sider from 'antd/es/layout/Sider';
 
-const { Header, Content, Footer, Sider } = Layout;
+const { Header, Content, Footer } = Layout;
 
 const View: React.FC = () => {
-  //antd 数据
-  const [collapsed, setCollapsed] = useState(false);
-  const {
-    token: { colorBgContainer },
-  } = theme.useToken();
+
+
+
 
   return (
-    <Layout style={{ minHeight: '100vh' }}>
-      {/* 左边侧边栏 */}
-      <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
-        <SessionList></SessionList>
-      </Sider>
 
+    <Layout style={{ height: '100vh' }}>
+      {/* 右边头部 */}
+      <Header >
+        <UserMenu></UserMenu>
+      </Header>
 
-      {/* 右边内容 */}
-      <Layout className="site-layout">
-        {/* 右边头部 */}
-        <Header style={{background: colorBgContainer }} >
-
-          <UserMenu></UserMenu>
-
-
-        </Header>
-
-        {/* 右边内容 白色底部 */}
-        <Content style={{ background: colorBgContainer }} className="">
+      <Content >
 
 
         <MessageView></MessageView>
-        
-          {/* 窗口部分 */}
-          {/* <Outlet /> */}
-          {/* 右边底部 */}
-        </Content>
-        <Footer style={{ textAlign: 'center', padding: 0, lineHeight: "32px" }}>管理员: 82471454@qq.com</Footer>
-      </Layout>
+
+      </Content>
+
+      <Footer style={{ textAlign: 'center', padding: 0, lineHeight: "32px" }}>管理员: 82471454@qq.com</Footer>
 
     </Layout>
+
+
+
   );
 };
 

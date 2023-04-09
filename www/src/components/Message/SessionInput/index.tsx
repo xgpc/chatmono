@@ -18,22 +18,27 @@ const App = ({ value, onChange }: { value: string, onChange: Function }) => {
         setinputData(e.target.value);
     };
 
-
-
-
-
     return (
-        <div>
-            <Layout>
+        
+            <Layout >
                 <Content>
-                    <TextArea onChange={TextAreaOnChange} rows={4} placeholder="输入内容" maxLength={300} style={{ display: 'flex' }} />
+                    <TextArea 
+                    
+                    autoSize={{minRows: 6, maxRows: 6 } }
+                    showCount={true}
+                    onChange={TextAreaOnChange} 
+                    placeholder="输入内容"  
+                    style={{ display: 'flex' }} />
                 </Content>
                 <Sider style={{backgroundColor:'white'}}>
-                    <Button type="primary" block onClick={InputOnclick} style={{ marginLeft: '10px', flexShrink: '0' }}>   发送</Button>
+                    <Button 
+                    style={{height:'70px',}}
+                    type="primary" 
+                    block onClick={InputOnclick} >   发送</Button>
                 </Sider>
 
             </Layout>
-        </div>
+        
     )
 
 }

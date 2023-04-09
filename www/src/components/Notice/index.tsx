@@ -22,7 +22,7 @@ const View = () => {
 
 
     return (
-        <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+        <Modal title="chat mono" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
             <h1>chatmono持续更新中</h1>
             <h1> 使用中有问题可以联系下方作者邮箱,或者添加QQ </h1>
             <p> 直接对话即可 </p>

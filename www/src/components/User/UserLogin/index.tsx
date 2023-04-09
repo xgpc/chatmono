@@ -13,7 +13,7 @@ interface ResBody {
     msg:string
 }
 
-const View = ({ Draweropen, DraweronClose }: { Draweropen: boolean, DraweronClose: Function }) => {
+const View = ({ Draweropen, DraweronClose, onChange }: { Draweropen: boolean, DraweronClose: Function, onChange:Function }) => {
 
     const [isRegisterClicked, setisRegisterClicked] = useState(false)
     const [userName, setUserName] = useState('')
@@ -38,6 +38,7 @@ const View = ({ Draweropen, DraweronClose }: { Draweropen: boolean, DraweronClos
                 if (res.code == 0){
                     // 设置token
                     localStorage.setItem('token', res.data.token) 
+                    onChange(res.data.user)
                 }
                 
             }).catch((e) => {
@@ -54,6 +55,7 @@ const View = ({ Draweropen, DraweronClose }: { Draweropen: boolean, DraweronClos
                                 if (res.code == 0){
                     // 设置token
                     localStorage.setItem('token', res.data.token) 
+                    onChange(res.data.user)
                 }
                 
             }).catch((e) => {

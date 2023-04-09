@@ -19,9 +19,11 @@ const ChatBox = ({ messages, AvatarPath }:{messages:IsessionData[], AvatarPath:s
       renderItem={(item) => (
         <List.Item
           style={{
+            
             display: "flex",
             flexDirection: "column",
-            alignItems: item.role === "user" ? "flex-end" : "flex-start",
+            alignItems: "flex-start",
+            
           }}
         >
             {/* // 后续加入 */}
@@ -31,7 +33,7 @@ const ChatBox = ({ messages, AvatarPath }:{messages:IsessionData[], AvatarPath:s
               maxWidth: "70%",
               padding: "10px",
               borderRadius: "8px",
-              backgroundColor: item.role === "user" ? "#ffffff" : "#f5f5f5",
+              backgroundColor: item.role === "user" ? "##00bfff" : "#f0ffff",
             }}
             dangerouslySetInnerHTML={{ __html: md.render(item.content) }}
           />
