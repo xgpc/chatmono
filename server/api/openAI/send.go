@@ -8,7 +8,9 @@ import (
 )
 
 type OpenAISendReq struct {
-	Messages []*openAI.Message `json:"messages"`
+	SessionKey string `json:"session_key"` // 当前会话的KEY
+
+	Messages []openAI.Message `json:"messages"`
 }
 
 // Send 发送消息

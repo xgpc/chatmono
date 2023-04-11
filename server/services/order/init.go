@@ -44,6 +44,8 @@ func Init(conf wechatPly.Config, rdb *redis2.Client) {
 			panic(errors.New("wechatAPI.NewHand Create error"))
 		}
 
+        Native := wechatAPI.
+
 		Handle = &order{
 			wxmini: wxmini,
 			Api:    api,

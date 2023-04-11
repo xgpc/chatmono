@@ -5,6 +5,7 @@ import (
 	"chatmono/api/openAI"
 	"chatmono/api/order"
 	"chatmono/api/product"
+	"chatmono/api/session"
 	"chatmono/api/user"
 	_ "chatmono/docs"
 	"chatmono/services/fileServer"
@@ -48,4 +49,5 @@ func Routers(api *iris.Application) {
 	//referrer.Router(a)
 	//receiver.Router(a)
 	openAI.Router(a)
+	session.Router(a)
 }

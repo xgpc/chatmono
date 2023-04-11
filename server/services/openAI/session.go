@@ -4,37 +4,69 @@ import (
 	"context"
 	"github.com/xgpc/dsg/exce"
 	"github.com/xgpc/util"
+	"strconv"
 	"time"
 )
 
-func SetSession(key string, req *ReqOpenAI) {
-	_, err := redis().Set(context.Background(), key, req.String(), time.Hour*24*30).Result()
+// 通过hset来保存用户的会话数据
+
+type SessionData struct {
+	Request     ReqOpenAI `json:"request"`
+	Title       string    `json:"title"`
+	TemplateID  uint32    `json:"template_id"`
+	SessionType int       `json:"session_type"` // 回话类型 1单次, 2连续
+}
+
+func (p *SessionData) String() string {
+	marshal, err := util.JsonEncode(p)
+	if err != nil {
+		exce.ThrowSys(exce.CodeRequestError, err.Error())
+	}
+	return string(marshal)
+}
+
+func SessionDecode(data string) *SessionData {
+	var info SessionData
+	util.JsonDecode([]byte(data), &info)
+	return &info
+}
+
+func SetSession(userId uint32, sessionKey string, req *SessionData) {
+	idStr := strconv.Itoa(int(userId))
+	_, err := redis().HSet(context.Background(), idStr, sessionKey, req.String(), time.Hour*24*30).Result()
 	if err != nil {
 		exce.ThrowSys(exce.CodeRequestError, err.Error())
 	}
 }
 
-func GetSession(key string) (*ReqOpenAI, error) {
-	result, err := redis().Get(context.Background(), key).Result()
+func GetSession(userId uint32, sessionKey string) (*SessionData, error) {
+	idStr := strconv.Itoa(int(userId))
+	result, err := redis().HGet(context.Background(), idStr, sessionKey).Result()
 	if err != nil {
 		exce.ThrowSys(exce.CodeRequestError, err.Error())
 	}
 
-	var Req ReqOpenAI
-
-	err = util.JsonDecode([]byte(result), &Req)
-	if err != nil {
-		exce.ThrowSys(exce.CodeRequestError, err.Error())
-	}
-
-	return &Req, nil
+	Req := SessionDecode(result)
+	return Req, nil
 }
 
-func Exists(key string) bool {
-	result, err := redis().Exists(context.Background(), key).Result()
+func DelSession(userId uint32, sessionKey string) error {
+	idStr := strconv.Itoa(int(userId))
+	_, err := redis().HDel(context.Background(), idStr, sessionKey).Result()
+	return err
+}
+
+func GetAll(userId uint32) map[string]SessionData {
+	idStr := strconv.Itoa(int(userId))
+	md := map[string]SessionData{}
+	result, err := redis().HGetAll(context.Background(), string(idStr)).Result()
 	if err != nil {
 		exce.ThrowSys(exce.CodeRequestError, err.Error())
 	}
+	for k, v := range result {
+		Req := SessionDecode(v)
 
-	return result > 0
+		md[k] = *Req
+	}
+	return md
 }

@@ -14,9 +14,9 @@ type Message struct {
 }
 
 type ReqOpenAI struct {
-	Model       string     `json:"model"`
-	Messages    []*Message `json:"messages"`
-	Temperature float64    `json:"temperature"`
+	Model       string    `json:"model"`
+	Messages    []Message `json:"messages"`
+	Temperature float64   `json:"temperature"`
 }
 
 func (p *ReqOpenAI) String() string {
@@ -27,7 +27,7 @@ func (p *ReqOpenAI) String() string {
 	return string(marshal)
 }
 
-func (p *ReqOpenAI) Push(msg *Message) {
+func (p *ReqOpenAI) Push(msg Message) {
 	p.Messages = append(p.Messages, msg)
 }
 
