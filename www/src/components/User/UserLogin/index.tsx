@@ -84,6 +84,10 @@ const View = ({ Draweropen, DraweronClose, onChange }: { Draweropen: boolean, Dr
             okText={isRegisterClicked ? "注册" : "登录"} 
             cancelText='取消'>
                 <Space direction="vertical" size="middle" style={{ display: 'flex' }}>
+                <Switch size="default" checkedChildren="切换登录" unCheckedChildren="切换注册" onClick={(e) => {
+                        
+                        setisRegisterClicked(!isRegisterClicked)
+                    }} />
                     {/* 注册选择头像 */}
                     {isRegisterClicked == true && (
                         <>
@@ -105,10 +109,7 @@ const View = ({ Draweropen, DraweronClose, onChange }: { Draweropen: boolean, Dr
                         </>
                     )}
 
-                    <Switch size="default" checkedChildren="切换登录" unCheckedChildren="切换注册" onChange={(e) => {
-                        console.log(e);
-                        setisRegisterClicked(e)
-                    }} />
+                  
 
                 </Space>
             </Modal>
