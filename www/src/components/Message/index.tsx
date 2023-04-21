@@ -8,6 +8,8 @@ import MessageList from './MessageList'
 import SessionList from '../SessionList'
 import Sider from 'antd/es/layout/Sider'
 import { Content } from 'antd/es/layout/layout'
+import { encode, decode } from 'gpt-3-encoder'
+
 
 import Loading from '@/components/Loading'
 
@@ -15,8 +17,9 @@ const App: React.FC = () => {
   let sessionDataStr: any[] | (() => any[]) = []
 
   const [sessionData, setsessionData] = useState(sessionDataStr)
-  const [data, setData] = useState('')
+  const [inputData, setinputData] = useState('')
   const [isSpinning, setisSpinning] = useState(false)
+  
 
   // 获取拿到的SessionKey
   // 获取拿到的sessionData
@@ -27,22 +30,26 @@ const App: React.FC = () => {
   }
 
   const getInput = async (e: string) => {
-    let sessionList = sessionData
 
+    calcToken(e)
+    return 
+    let sessionList = [...sessionData]
+    
     sessionList.push({
       role: 'user',
       content: e
     })
+    
 
     setisSpinning(true);
 
     // 测试发送数据
-    await sendMessage({ messages: sessionData }).then((res: any) => {
+    await sendMessage({ messages: sessionList }).then((res: any) => {
 
       if (res.code == 0) {
         sessionList.push(res.data.choices[0].message)
         setsessionData([...sessionList])
-        setData('')
+        setinputData('')
       }
     }).catch((e) => {
       console.log(e);
@@ -51,6 +58,25 @@ const App: React.FC = () => {
       setisSpinning(false);
     })
 
+  }
+
+  const calcToken = (e:string)=>{
+    console.log(e);
+
+    
+
+    const str = 'This is an example sentence to try encoding out on!'
+    const encoded = encode(str)
+    console.log('Encoded this string looks like: ', encoded)
+
+    console.log('We can look at each token and what it represents')
+    for(let token of encoded){
+      console.log({token, string: decode([token])})
+    }
+
+    const decoded = decode(encoded)
+    console.log('We can decode it back into:\n', decoded)
+    
   }
 
   return (
@@ -67,9 +93,10 @@ const App: React.FC = () => {
 
           <MessageList messages={sessionData} AvatarPath={''} ></MessageList>
           <Button onClick={cleanonClick} style={{}}> 清空会话 </Button>
-          <Button onClick={()=>{setisSpinning(true)}} style={{}}> 提前结束 </Button>
+          <Button onClick={()=>{setisSpinning(false)}} style={{}}> 提前结束 </Button>
+          
           <Spin spinning={isSpinning}>
-          <SessionInput onChange={getInput} value={data}></SessionInput>
+          <SessionInput onChange={getInput} value={inputData}></SessionInput>
           </Spin>
       </Content>
       

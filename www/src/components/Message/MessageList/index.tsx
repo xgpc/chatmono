@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { List, Avatar } from "antd";
 import MarkdownIt from "markdown-it";
 
@@ -12,9 +12,22 @@ interface IsessionData {
   }
 
 const ChatBox = ({ messages, AvatarPath }:{messages:IsessionData[], AvatarPath:string}) => {
+  const listRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (listRef.current) {
+      listRef.current.scrollTop = listRef.current.scrollHeight;
+    }
+  }, [messages]);
+  
   return (
-    <List
+    <div
+      ref={listRef}
       style={{ height: "80%", overflow: "auto" }}
+    >
+    <List
+      
+      style={{ height: "100%", overflow: "auto" }}
       dataSource={messages}
       renderItem={(item) => (
         <List.Item
@@ -39,7 +52,7 @@ const ChatBox = ({ messages, AvatarPath }:{messages:IsessionData[], AvatarPath:s
           />
         </List.Item>
       )}
-    />
+    /></div>
   );
 };
 

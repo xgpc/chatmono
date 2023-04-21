@@ -18,7 +18,7 @@ function App() {
 {/* <LayoutDemo></LayoutDemo> */}
 
      <Notice></Notice>
-     <Home></Home>
+     <Home/>
     </div>
   )
 }
