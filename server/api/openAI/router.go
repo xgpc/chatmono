@@ -1,12 +1,13 @@
 package openAI
 
 import (
+	"chatmono/services/user"
 	"github.com/kataras/iris/v12"
 )
 
 func Router(api iris.Party) {
-	a := api.Party("/openAI")
-	//user.Login // 测试阶段不需要登录
+	a := api.Party("/openAI", user.Login)
+
 	a.Post("/info", Info)
 	a.Post("/templates/list", Templates)
 	a.Post("/list", List)

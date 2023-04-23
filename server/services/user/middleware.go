@@ -11,13 +11,13 @@ func Login(ctx iris.Context) {
 	if token != "" {
 		id := GetSession(token)
 		if id == 0 {
-			exce.ThrowSys(exce.CodeUserNoLogin)
+			exce.ThrowSys(exce.CodeUserNoLogin, "请登录后重试")
 		}
 		ctx.Values().Set("mid", id)
 		// 刷新token
 		defer session.Expire(token)
 	} else {
-		exce.ThrowSys(exce.CodeUserNoLogin)
+		exce.ThrowSys(exce.CodeUserNoLogin, "请登录后重试")
 	}
 
 	ctx.Next()
