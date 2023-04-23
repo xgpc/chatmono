@@ -6,7 +6,6 @@ import (
 	"chatmono/services/openAI"
 	"chatmono/services/order/wechatPly"
 	"chatmono/services/oss"
-	"chatmono/services/ueditor"
 	"chatmono/services/wechat/wechatOfficial"
 )
 
@@ -14,7 +13,6 @@ var Config config
 
 type config struct {
 	Secret           string                `yaml:"secret"`
-	Ueditor          ueditor.Configs       `yaml:"ueditor"`
 	Mini             wechatOfficial.Config `yaml:"wechatOfficial"`
 	Oss              oss.Config            `yaml:"oss"`
 	FileServer       fileServer.Config     `yaml:"file_server"`
