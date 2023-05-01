@@ -1,6 +1,6 @@
 import React from 'react';
 import { Layout, Space } from 'antd';
-import MessageView from '@/components/Message'
+
 const { Header, Footer, Sider, Content } = Layout;
 
 const headerStyle: React.CSSProperties = {
@@ -43,7 +43,6 @@ const App: React.FC = () => (
         <Sider style={siderStyle}>Sider</Sider>
         <Content style={contentStyle}>
         
-            <MessageView></MessageView>
 
   
         </Content>

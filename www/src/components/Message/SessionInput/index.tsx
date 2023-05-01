@@ -5,29 +5,39 @@ import { Content } from "antd/es/layout/layout";
 import { log } from "console";
 import { SetStateAction, useEffect, useState } from "react";
 
-const App = ({ value, onChange }: { value: string, onChange: Function }) => {
+const App = ({ value, onclick}: { value: string, onclick: Function }) => {
 
     const [inputData, setinputData] = useState(value)
     // 根据输入的数据返回
 
-    useEffect(()=>{
-        setinputData(value)
-    },[value])
-
     const InputOnclick = () => {
-        onChange(inputData)
+        onclick(inputData)
+    };
+
+
+    const handleKeyDown = (e: any) => {
+        if (e.key === 'Enter' && e.altKey) {
+            setinputData(inputData + '\n');
+        } else if (e.key === 'Enter') {
+            InputOnclick();
+        }
     };
 
     const TextAreaOnChange = (e: { target: { value: SetStateAction<string>; }; }) => {
         setinputData(e.target.value);
     };
 
+    const CleanText = () => {
+        setinputData('')
+    }
+
     return (
         
             <Layout >
                 <Content>
                     <TextArea 
-                    onKeyDown={InputOnclick}
+                    value={inputData}
+                    onKeyDown={handleKeyDown} 
                     autoSize={{minRows: 6, maxRows: 6 } }
                     showCount={true}
                     onChange={TextAreaOnChange} 
@@ -40,6 +50,11 @@ const App = ({ value, onChange }: { value: string, onChange: Function }) => {
                     type="primary" 
                     
                     block onClick={InputOnclick} >   发送</Button>
+                    <Button 
+                    style={{height:'70px',}}
+                    type="primary" 
+                    
+                    block onClick={CleanText} >   Clean </Button>
                 </Sider>
 
             </Layout>

@@ -34,13 +34,21 @@ const items: MenuItem[] = [
   getItem('默认会话', 'default', <SolutionOutlined />), 
 ];
 
+interface AppProps {
+  onClick: Function;
+}
 
 
-const App: React.FC = () => {
+const App: React.FC<AppProps> = ({onClick}) => {
     
     const [num, setNum] = useState(1);
     const [menuKeys, setMenuKeys] = useState(items);
     const [currentKey, setcurrentKey] = useState(['default']);
+
+
+    const switchOnClick = () =>{
+      onClick()
+    }
 
     const handleClickAdd = () => {
         
@@ -91,26 +99,16 @@ const App: React.FC = () => {
 
     
 
-  return (    
-    <>
-    {contextHolder}
-     <Button onClick={handleClickAdd}>Add Menu</Button>
-     <Button onClick={handleClickDel}>Del Menu</Button>
-      <Menu
-      style={{ height:'100%' ,overflow:'auto'}}
-        // defaultSelectedKeys={[currentRoute]}
-        mode="inline"
-        onClick={menuClick}
-        selectedKeys={ currentKey }
-        // onOpenChange={handleOpenChange}
-        //当前展开项的数租
-        // onChange={onChangeMenu}
-        items={menuKeys}
-      />
-    </>
-    
+  return (
+
       
-  );
+      <div>
+      {contextHolder} 
+      </div>
+    )
+    
+    
+    
 };
 
 export default App;

@@ -1,12 +1,20 @@
-import { Modal } from "antd"
+import { Modal, message } from "antd"
 import { useState } from "react";
 
 
 
+export const MessageError = (msg:string) => {
+  const [messageApi, contextHolder] = message.useMessage();
+  messageApi.open({
+    type: 'error',
+    content: msg,
+  });
+};
+
 const View = () => {
-
+  
     const [isModalOpen, setIsModalOpen] = useState(true);
-
+    const [messageApi, contextHolder] = message.useMessage();
     const showModal = () => {
       setIsModalOpen(true);
     };
@@ -19,18 +27,19 @@ const View = () => {
       setIsModalOpen(false);
     };
 
-
-
     return (
+
+      <>
+        {contextHolder}
         <Modal title="chat mono" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
             <h1>chatmono持续更新中</h1>
-            <h1> 使用中有问题可以联系下方作者邮箱,或者添加QQ </h1>
-            <p> 直接对话即可 </p>
-            <p>  当前页面只提供5次上下文对话, 既你可以提问5次 + openAI回答5次</p>
-            <p>  对话达到最大次数后请点击清空会话重新发起提问!</p>
+            <p> 服务器进行了更新, 目前已经迁移俄勒冈州, 稳定使用</p>
+            <p> 当前修改为账号登录后使用,<br />
+             因之前免费使用不做限制被人拿去训练了</p>
             
 
       </Modal>
+      </>
     )
 }
 

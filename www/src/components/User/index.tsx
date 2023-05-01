@@ -26,6 +26,30 @@ const App: React.FC = () => {
   // 是否登录
   const [LoginOpen, setLoginOpen] = useState(false);
 
+
+
+  useEffect(()=>{
+    const token = localStorage.getItem("token");
+    if (token == "" || token == null){
+      return
+    }
+
+    // token不为空的情况下获取用户信息
+    getUserInfo(token)
+ 
+  })
+
+
+  const getUserInfo = (token:string)=>{
+    if (token == ""){
+      return
+    }
+
+
+  }
+
+
+
   // 点击后判断是否登录, 没有登录打开登录窗口, 登录则打开用户信息页面
   function AvataronClick(): void {
     const token = localStorage.getItem("token");
@@ -75,13 +99,12 @@ const App: React.FC = () => {
         }} />
 
       <Row justify="end">
-        <Col span={3} onClick={AvataronClick}
-          style={{ color: "red", background: 'rgba(	0, 191, 255, 0.5)' }}>
+        
           <Row justify="end">
             <p style={{}}> { userData.id == 0 ?'点击登录':userData.user_name} </p>
-            <Avatar size={64} src={userData.user_img} />
+            <Avatar onClick={AvataronClick} size={64} src={userData.user_img}>点击登录</Avatar>
           </Row>
-        </Col>
+        
       </Row>
     </>
   )
